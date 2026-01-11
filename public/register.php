@@ -11,16 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($username) || empty($password) || empty($owner_name)) {
         $error = 'الرجاء ملء جميع الحقول.';
     } else {
-        // التحقق من أن اسم المستخدم غير موجود مسبقاً
         $stmt = $pdo->prepare("SELECT id FROM accounts WHERE username = ?");
         $stmt->execute([$username]);
         if ($stmt->fetch()) {
             $error = 'اسم المستخدم هذا مسجل بالفعل. الرجاء اختيار اسم آخر.';
         } else {
-            // تشفير كلمة المرور
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             
-            // إدراج المستخدم الجديد
             $stmt = $pdo->prepare("INSERT INTO accounts (username, password, owner_name) VALUES (?, ?, ?)");
             if ($stmt->execute([$username, $hashed_password, $owner_name])) {
                 $success = 'تم إنشاء حسابك بنجاح! يمكنك الآن تسجيل الدخول.';
@@ -60,3 +57,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
+

@@ -1,9 +1,5 @@
 <?php
-// هذا الملف يحتوي على دوال مساعدة
 
-/**
- * يتحقق مما إذا كان المستخدم قد سجل دخوله.
- */
 function require_login() {
     if (!isset($_SESSION['user_id'])) {
         header('Location: login.php');
@@ -11,11 +7,7 @@ function require_login() {
     }
 }
 
-/**
- * يحصل على بيانات المستخدم المسجل دخوله من قاعدة البيانات.
- * تم تغيير الاسم لتجنب التضارب مع دوال PHP المدمجة.
- * @return array|null
- */
+
 function get_authenticated_user(): ?array {
     global $pdo; 
 
@@ -31,3 +23,4 @@ function get_authenticated_user(): ?array {
     return $user_data === false ? null : $user_data;
 }
 ?>
+

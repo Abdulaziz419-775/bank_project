@@ -1,5 +1,4 @@
 <?php
-// بدء الجلسة في كل الصفحات
 session_start();
 
 // إعدادات الاتصال
@@ -19,14 +18,12 @@ $options = [
     PDO::ATTR_EMULATE_PREPARES   => false,
 ];
 
-// محاولة الاتصال
 try {
     $pdo = new PDO($dsn, $db_user, $db_pass, $options);
 } catch (PDOException $e) {
-    // في حال فشل الاتصال، لا تكشف التفاصيل للمستخدم
-    // سجل الخطأ في ملف logs
+   
     error_log("فشل الاتصال بقاعدة البيانات: " . $e->getMessage());
-    // اعرض رسالة عامة
     die("عذراً، حدث خطأ فني في النظام. يرجى المحاولة لاحقاً.");
 }
 ?>
+

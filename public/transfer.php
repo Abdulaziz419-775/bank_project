@@ -1,5 +1,4 @@
 <?php
-// الخطوة 1: تضمين الملفات الأساسية
 require_once '../config/database.php';
 require_once '../includes/functions.php';
 
@@ -17,12 +16,10 @@ if ($user === null) {
     exit();
 }
 
-// الخطوة 4: معالجة طلب التحويل إذا كان من نوع POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $toUsername = $_POST['to_username'] ?? '';
     $amount = (float)($_POST['amount'] ?? 0);
 
-    // جلب ID المستلم
     $stmt = $pdo->prepare("SELECT id FROM accounts WHERE username = ?");
     $stmt->execute([$toUsername]);
     $receiver = $stmt->fetch();
@@ -47,14 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new Exception("رصيدك الحالي غير كافٍ لإتمام هذه العملية.");
             }
 
-            //  نخصمة الفلوس من المرسل
             $stmt = $pdo->prepare("UPDATE accounts SET balance = balance - ? WHERE id = ?");
             $stmt->execute([$amount, $user['id']]);
 
 
             throw new Exception("محاكاة فشل النظام بعد الخصم!");
 
-            //  نضيفه الفلوس للمستلم
             $stmt = $pdo->prepare("UPDATE accounts SET balance = balance + ? WHERE id = ?");
             $stmt->execute([$amount, $receiver['id']]);
 
@@ -111,3 +106,4 @@ require_once '../includes/header.php';
 
 require_once '../includes/footer.php';
 ?>
+

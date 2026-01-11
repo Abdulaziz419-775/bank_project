@@ -1,5 +1,4 @@
 <?php
-// لا تضع أي require_once هنا، سيتم وضعها في الصفحات الرئيسية
 ?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -32,4 +31,4 @@
         </nav>
         
         <main>
-        <!-- لا تضع أي كود آخر هنا. سيتم إغلاق وسم main في ملف footer.php -->
+
